@@ -1,0 +1,47 @@
+.box-tabel *{
+   color: var(--black-light-color) !important;
+}
+.form-control.form-control-sm, .form-select.form-select-sm,
+#month, #year, .pagination :where(#activities_previous a, #activities_next a){
+   border: 1px solid var(--border-color) !important;
+   background-color: var(--panel-color) !important;
+   color: var(--black-light-color) !important;
+}
+@media (max-width:543px){
+   #action :first-child select{
+      width: 100% !important;
+      min-width: fit-content !important;
+   }
+   #action > div, #action div:last-child .d-flex.gap-3{
+      width: 100% !important;
+   }
+   #action div:last-child a,
+   #action div:last-child .d-flex.gap-3 :where(a, button){
+      width: 100% !important;
+      min-width: fit-content !important;
+   }
+}
+
+@media (max-width:768px){
+   #activities_wrapper .row:first-child{
+   top: -71px !important;
+   gap: 5px;
+ }
+ .box-tabel{
+   margin-top: 5.6em !important;
+ }
+}
+ @media (max-width:1200px){
+    .box-tabel{
+      margin-top: 5em;
+    }
+    #activities_wrapper .row:first-child{
+      position: absolute;
+      width: 100%;
+      top: -44px;
+    }
+    #activities_wrapper .row:last-child{
+      position: absolute;
+      width: 100%;
+    }
+ }

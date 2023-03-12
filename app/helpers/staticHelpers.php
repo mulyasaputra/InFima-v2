@@ -1,0 +1,116 @@
+<?php
+function toDays($date)
+{
+   $timestamp = strtotime($date);
+   $now = time();
+   $diff_in_seconds = $timestamp - $now; // perbedaan dihitung dari tanggal target ke waktu sekarang
+   $diff_in_days = ceil($diff_in_seconds / 86400); // pembulatan ke atas untuk menghindari hasil nol
+   if ($diff_in_days == 0) {
+      $text = 'Today';
+   } else if ($diff_in_days == 1) {
+      $text = 'Tomorrow';
+   } else if ($diff_in_days > 1) {
+      $text = $diff_in_days . ' more days';
+   } else {
+      $text = abs($diff_in_days) . ' days ago'; // jika tanggal target sudah lewat
+   }
+   echo $text;
+}
+
+function toCurrency($amount)
+{
+   $formattedAmount = number_format($amount, 0, ',', '.');
+   return "Rp" . $formattedAmount . ",00";
+}
+
+function formatRupiah($angka)
+{
+   $suffixes = ["", "ribu", "juta", "milyar", "triliun", "kuadriliun", "kuintiliun"];
+   $i = 0;
+   while ($angka >= 1000) {
+      $angka /= 1000;
+      $i++;
+   }
+   $result = number_format($angka, 0, ',', '.');
+   $result .= " " . $suffixes[$i];
+   if ($i > 0) {
+      $result .= " ";
+   }
+   $result .= "rupiah";
+   return $result;
+}
+
+function filterBased($data, $row = 'date')
+{
+   $filteredData = array();
+   foreach ($data as $item) {
+      $parsedDate = date_parse_from_format("Y-m-d", $item[$row]);
+      if ($parsedDate["month"] == date('n')) {
+         $filteredData[] = $item;
+      }
+   }
+   return $filteredData;
+}
+
+function getDataEveryMonth($data, $row = 'date')
+{
+   $counts = array_fill(1, 12, 0); // array untuk menyimpan jumlah data setiap bulan dengan nilai awal nol pada setiap indeks
+   foreach ($data as $item) {
+      $date = strtotime($item[$row]); // konversi string tanggal ke timestamp
+      $month = date('n', $date); // ambil bulan dari tanggal (tanpa leading zero)
+      $counts[$month]++; // tambahkan satu pada jumlah data bulan tersebut
+   }
+
+
+   return json_encode(array_values($counts));
+}
+
+// GDEMWhareYear
+function getDataEveryMonthWhereYear($data, $row = 'date', $year)
+{
+   $year = $year ?? date('Y');
+   $data_bulanan = array_fill(0, 12, 0);
+
+   // Iterasi pada array data untuk mengisi nilai bulanan
+   foreach ($data as $item) {
+      $bulan = date("n", strtotime($item[$row]));
+      if (date("Y", strtotime($item[$row])) == $year) {
+         $data_bulanan[$bulan - 1] += 1;
+      }
+   }
+   return $data_bulanan;
+}
+
+function getNominalEveryYear($data, $date = 'date', $rows = 'nominal')
+{
+   $bulan = array_fill(0, 12, 0);
+   foreach ($data as $row) {
+      $month = date('n', strtotime($row[$date])) - 1;
+      $bulan[$month] += $row[$rows];
+   }
+   return json_encode(array_values($bulan));
+}
+
+function getDataSaving($array)
+{
+
+   $total_type1_march = 0;
+   $total_type1 = 0;
+   $total_type0 = 0;
+   $month = date('n');
+   $year = date('Y');
+   foreach ($array as $row) {
+      if ($row['type'] == 1 && date('Y', strtotime($row['date'])) == $year && date('m', strtotime($row['date'])) == $month) {
+         $total_type1_march += $row['nominal'];
+      }
+   }
+
+   foreach ($array as $row) {
+      if ($row['type'] == 1) {
+         $total_type1 += $row['nominal'];
+      } elseif ($row['type'] == 0) {
+         $total_type0 += $row['nominal'];
+      }
+   }
+   return [$total_type1_march, ($total_type1 - $total_type0)];
+}
