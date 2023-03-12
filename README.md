@@ -8,7 +8,7 @@ InFima kini hadir dengan membawa tampilan dan fitur yang lebih baik lagi, Aplika
 
 ## Desain
 
-![UI InSketch Management](https://raw.githubusercontent.com/mulyasaputra/InFima-v2/public/assets/ui.jpg)
+![UI InSketch Management](https://raw.githubusercontent.com/mulyasaputra/InFima-v2/main/public/assets/ui.png)
 
 ## Mengunduh Repository
 
@@ -59,4 +59,4 @@ git clone https://github.com/mulyasaputra/InFima-v2.git
 - [Chart.js](https://www.chartjs.org/)
 - [DataTables](https://datatables.net/)
 - [SweetAlert2](https://sweetalert2.github.io/)
-- [mpdf](https://mpdf.github.io/)
+- [mpdf (Coming soon)](https://mpdf.github.io/)
