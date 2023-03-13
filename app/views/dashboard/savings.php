@@ -215,7 +215,6 @@
    <?php Flasher::flash(); ?>
 </div>
 
-<script src="<?= BASEURL ?>public/js/toCurrency.js"></script>
 <script>
    // Validate Data
    var validates = [document.querySelector("#nominal"),
@@ -227,7 +226,7 @@
       });
    });
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/jQuery/jquery-3.6.4.js"></script>
 <script>
    // button edit Data
    $(function() {

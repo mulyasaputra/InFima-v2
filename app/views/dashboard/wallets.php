@@ -286,8 +286,7 @@ $monthlyIncome = array_reduce($data['data'], function ($carry, $row) {
       </div>
    </div>
 </div>
-<script src="<?= BASEURL ?>public/js/toCurrency.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/jQuery/jquery-3.6.4.js"></script>
 <script>
    // Option
    month.addEventListener("change", function() {

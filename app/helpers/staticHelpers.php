@@ -114,3 +114,72 @@ function getDataSaving($array)
    }
    return [$total_type1_march, ($total_type1 - $total_type0)];
 }
+
+
+function getYearlyData($data, $date = 'date', $rows = 'nominal')
+{
+   $thisYear = date('Y');
+   $lastYear = $thisYear - 1;
+
+   $thisYearData = array_fill(0, 12, 0);
+   $lastYearData = array_fill(0, 12, 0);
+
+
+   foreach ($data as $row) {
+      $month = date('n', strtotime($row[$date]));
+
+      // Jika data di tahun ini, tambahkan ke data tahun ini
+      if (date('Y', strtotime($row[$date])) == $thisYear) {
+         $thisYearData[$month - 1] += $row[$rows];
+      }
+      // Jika data di tahun lalu, tambahkan ke data tahun lalu
+      elseif (date('Y', strtotime($row[$date])) == $lastYear) {
+         $lastYearData[$month - 1] += $row[$rows];
+      }
+   }
+
+   // Kembalikan array dengan data untuk tahun ini dan tahun lalu
+   // json_encode(array_values($bulan));
+   return array(
+      'last_year' => json_encode(array_values($lastYearData)),
+      'this_year' => json_encode(array_values($thisYearData)),
+   );
+}
+function getYearsavings($data)
+{
+   $thisYear = date('Y');
+   $lastYear = $thisYear - 1;
+   $thisYear1 = array_fill(0, 12, 0);
+   $thisYear0 = array_fill(0, 12, 0);
+   $lastYear1 = array_fill(0, 12, 0);
+   $lastYear0 = array_fill(0, 12, 0);
+
+
+   foreach ($data as $row) {
+      $month = date('n', strtotime($row['date']));
+
+      // Jika data di tahun ini, tambahkan ke data tahun ini
+      if (date('Y', strtotime($row['date'])) == $thisYear) {
+         if ($row['type'] == 1) {
+            $thisYear1[$month - 1] += $row['nominal'];
+         } elseif ($row['type'] == 0) {
+            $thisYear0[$month - 1] += $row['nominal'];
+         }
+      }
+      // Jika data di tahun lalu, tambahkan ke data tahun lalu
+      elseif (date('Y', strtotime($row['date'])) == $lastYear) {
+         if ($row['type'] == 1) {
+            $lastYear1[$month - 1] += $row['nominal'];
+         } elseif ($row['type'] == 0) {
+            $lastYear0[$month - 1] += $row['nominal'];
+         }
+      }
+   }
+
+   $lastYearData = [json_encode(array_values($thisYear1)), json_encode(array_values($thisYear0))];
+   $thisYearData = [json_encode(array_values($lastYear1)), json_encode(array_values($lastYear0))];
+   return array(
+      'last_year' => $lastYearData,
+      'this_year' => $thisYearData,
+   );
+}

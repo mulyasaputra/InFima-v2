@@ -12,13 +12,14 @@ if (!isset($_SESSION["user"])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!----======== CSS ======== -->
-   <link rel="stylesheet" href="<?= BASEURL; ?>public/css/bland.css">
+   <link rel="stylesheet" href="<?= BASEURL; ?>public/Vendor/InSketch/css/bland.css">
    <link rel="stylesheet" href="<?= BASEURL; ?>public/css/dashboard.css">
 
    <!----===== Iconscout CSS ===== -->
    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="<?= BASEURL; ?>public/Vendor/SweetAlert2/sweetalert2.all.min.js"></script>
+   <script src="<?= BASEURL ?>public/Vendor/InSketch/js/toCurrency.js"></script>
 
    <title>InFima | <?= $data['title']; ?></title>
 </head>

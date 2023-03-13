@@ -39,11 +39,17 @@ class Dashboard extends Controller
       ]);
       $this->view('dashboard/layout/footer');
    }
-   public function analytics()
+   public function analytics($month = null, $year = null)
    {
+      $month = $month ?? date('F');
+      $year = $year ?? date('Y');
       $this->view('dashboard/layout/header', ['title' => 'Analytics']);
       $this->view('dashboard/layout/navbar', ['analytics' => 'active']);
-      $this->view('dashboard/analytics');
+      $this->view('dashboard/analytics', [
+         'month' => $month,
+         'year' => $year,
+         'data' => $this->model('AnalyticsModel')->getAnalytics(),
+      ]);
       $this->view('dashboard/layout/footer');
    }
    public function wallets($month = null, $year = null)

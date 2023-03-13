@@ -18,14 +18,14 @@ Gunakan perintah `git clone` untuk mendapatkan repository
 git clone https://github.com/mulyasaputra/InFima-v2.git
 ```
 
-#### version Beta.1
+#### version Beta 1.2
 
 - Suport PHP versi 7.4.4 keatas
 - Full responsive
+- Analytics
 - Multiple Roles: Admin, User, Treasurer (If there is time)
 - Edit profile (Coming soon)
 - Print to PDF & CSV (Coming soon)
-- Analytics (Coming soon)
 
 
 #### Catatan
@@ -38,13 +38,12 @@ git clone https://github.com/mulyasaputra/InFima-v2.git
 #### Font scripts
 
 - [Google Font API](https://fonts.google.com/)
-- [Font Awesome](https://fontawesome.com/)
+- [Font Awesome v6.0.0](https://fontawesome.com/)
 
 #### CDN
 
 - [cdnjs](https://cdnjs.com/)
-- [Unpkg](https://unpkg.com/)
-- [jQuery CDN](https://jquery.com/)
+- [jsDelivr](https://www.jsdelivr.com/)
 
 #### Lainnya
 - [Unicons](https://iconscout.com/unicons)
@@ -54,9 +53,9 @@ git clone https://github.com/mulyasaputra/InFima-v2.git
 - [JavaScript](https://www.javascript.com/)
 
 #### Framework & Library
-- [JQuery](https://jquery.com/)
-- [Bootstrap V5.3](https://getbootstrap.com/)
-- [Chart.js](https://www.chartjs.org/)
-- [DataTables](https://datatables.net/)
-- [SweetAlert2](https://sweetalert2.github.io/)
+- [JQuery v3.6.4](https://jquery.com/)
+- [Bootstrap v5.3.0](https://getbootstrap.com/)
+- [Chart.js v4.2.1](https://www.chartjs.org/)
+- [DataTables v1.13.3](https://datatables.net/)
+- [SweetAlert2 v11](https://sweetalert2.github.io/)
 - [mpdf (Coming soon)](https://mpdf.github.io/)

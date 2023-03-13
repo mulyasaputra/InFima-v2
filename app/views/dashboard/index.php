@@ -104,8 +104,7 @@ $monthlyExpenses = array_reduce($expenditures, function ($carry, $row) {
       </div>
    </div>
 </div>
-<script src="<?= BASEURL ?>public/js/Chart.min.js"></script>
-<script src="<?= BASEURL ?>public/js/toCurrency.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/Chart.js/chart.umd.js"></script>
 <script>
    const color = ["#3983eb", "#91D8E4", "#BFEAF5", "#FFC6D3", "#FEA1BF", "#E98EAD", "#EB455F", "#B3005E", "#FF5F9E", "#865DFF", "#E384FF", "#FFA3FD"];
    const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -133,8 +132,10 @@ $monthlyExpenses = array_reduce($expenditures, function ($carry, $row) {
             displayColors: false,
             caretPadding: 10,
          },
-         legend: {
-            display: false,
+         plugins: {
+            legend: {
+               display: false,
+            },
          },
          cutoutPercentage: 70,
       },
@@ -171,38 +172,10 @@ $monthlyExpenses = array_reduce($expenditures, function ($carry, $row) {
                bottom: 0
             }
          },
-         scales: {
-            xAxes: [{
-               time: {
-                  unit: 'date'
-               },
-               gridLines: {
-                  display: false,
-                  drawBorder: false
-               },
-               ticks: {
-                  maxTicksLimit: 7
-               }
-            }],
-            yAxes: [{
-               ticks: {
-                  maxTicksLimit: 5,
-                  padding: 10,
-                  callback: function(value, index, values) {
-                     return formatRupiah(value);
-                  }
-               },
-               gridLines: {
-                  color: "rgb(234, 236, 244)",
-                  zeroLineColor: "rgb(234, 236, 244)",
-                  drawBorder: false,
-                  borderDash: [2],
-                  zeroLineBorderDash: [2]
-               }
-            }],
-         },
-         legend: {
-            display: false
+         plugins: {
+            legend: {
+               display: false,
+            },
          },
          tooltips: {
             backgroundColor: "rgb(255,255,255)",

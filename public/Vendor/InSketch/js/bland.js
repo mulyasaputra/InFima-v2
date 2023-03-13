@@ -4,7 +4,6 @@ let show = scrollToTopBtn.getAttribute("show")
 let animateRotate = scrollToTopBtn.getAttribute("animate-rotate")
 let getAnimateShow = scrollToTopBtn.getAttribute("animate-show")
 const animateShow = (getAnimateShow ? getAnimateShow : 'block');
-console.log(show);
 switch(animateShow) {
    case 'right':
     showAninateTop = 'show-rtl';

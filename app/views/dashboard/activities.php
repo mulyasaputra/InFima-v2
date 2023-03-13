@@ -5,7 +5,7 @@ $urls = $_SERVER['REQUEST_URI'];
 $numList = 1;
 ?>
 <link rel="stylesheet" href="<?= BASEURL ?>public/css/activities.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="<?= BASEURL ?>public/Vendor/DataTables/dataTables.bootstrap5.min.css">
 
 <div class="dash-content">
    <h2 class="mt-4 mb-3" style="color: var(--black-light-color);">Activities</h2>
@@ -72,10 +72,9 @@ $numList = 1;
    </div>
 </div>
 
-<script src="<?= BASEURL ?>public/js/toCurrency.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/jQuery/jquery-3.6.4.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/DataTables/dataTables.jquery.min.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/DataTables/dataTables.bootstrap5.min.js"></script>
 <script>
    // Option
    month.addEventListener("change", function() {
