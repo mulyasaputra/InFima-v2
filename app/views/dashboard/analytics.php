@@ -117,9 +117,9 @@ $wallets = [getYearlyData($data["wallets"]), getDataEveryMonth($data["wallets"])
       lastYearRecords = <?= $records["this_year"]; ?>;
    const DoughnutActivitys = <?= $activitys[1]; ?>,
       DoughnutWallets = <?= $wallets[1]; ?>;
-   const thisYear1 = <?= $savings["last_year"][1]; ?>,
-      thisYear0 = <?= $savings["last_year"][0]; ?>,
-      lastYear1 = <?= $savings["this_year"][1]; ?>,
-      lastYear0 = <?= $savings["this_year"][0]; ?>;
+   const thisYear1 = <?= $savings["this_year"][1]; ?>,
+      thisYear0 = <?= $savings["this_year"][0]; ?>,
+      lastYear1 = <?= $savings["last_year"][1]; ?>,
+      lastYear0 = <?= $savings["last_year"][0]; ?>;
 </script>Earnings
 <script src="<?= BASEURL ?>public/js/AnalyticsChart.js"></script>

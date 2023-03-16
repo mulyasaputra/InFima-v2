@@ -40,6 +40,9 @@
    opacity: 0.2;
    right: -51px;
 }
+.text-thames{
+   color: var(--text-color);
+}
 body{
     min-height: 100vh;
     background-color: var(--primary-color);

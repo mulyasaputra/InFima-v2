@@ -19,23 +19,23 @@
    }
 </Style>
 <div class="dash-content">
-   <h2 class="mt-4 mb-3" style="color: var(--text-color);">Financial Backup Tube</h2>
+   <h2 class="mt-4 mb-3 text-thamestext-thames">Financial Backup Tube</h2>
    <div class="rows-cols-1 rows-cols-sm-2 rows-cols-xl-3">
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #e74a3b; background-color: var(--second-color); color: var(--text-color);">
+      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #e74a3b; background-color: var(--second-color);">
          <h6 class="text-uppercase heading-box" style="font-size: .9rem;">TOTAL SAVINGS</h6>
          <div class="box-desk flex">
             <span class="fs-4"><?= toCurrency($data['nominal'][0]['selisih']); ?></span>
             <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-credit-card"></i>
          </div>
       </div>
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #1cc88a; background-color: var(--second-color); color: var(--text-color);">
+      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #1cc88a; background-color: var(--second-color);">
          <h6 class="text-uppercase heading-box" style="font-size: .9rem;">Savings (<?= date("Y"); ?>)</h6>
          <div class="box-desk flex">
             <span class="fs-4"><?= toCurrency($data['nominal'][1]['Income']); ?></span>
             <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-bullseye"></i>
          </div>
       </div>
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #f6c23e; background-color: var(--second-color); color: var(--text-color);">
+      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #f6c23e; background-color: var(--second-color);">
          <h6 class="text-uppercase heading-box" style="font-size: .9rem;">SAVING OUT (<?= date("Y"); ?>)</h6>
          <div class="box-desk flex">
             <span class="fs-4"><?= toCurrency($data['nominal'][1]['Spending']); ?></span>

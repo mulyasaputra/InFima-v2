@@ -67,11 +67,11 @@ class Dashboard extends Controller
       ]);
       $this->view('dashboard/layout/footer');
    }
-   public function setting()
+   public function setting($val = 'profile')
    {
       $this->view('dashboard/layout/header', ['title' => 'Setting']);
       $this->view('dashboard/layout/navbar', ['setting' => 'active']);
-      $this->view('dashboard/setting');
+      $this->view('dashboard/setting', ['val' => $val]);
       $this->view('dashboard/layout/footer');
    }
 }

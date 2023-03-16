@@ -191,7 +191,7 @@ $monthlyIncome = array_reduce($data['data'], function ($carry, $row) {
    }
 </style>
 <div class="dash-content">
-   <h2 class="mt-4 mb-3" style="color: var(--text-color);">Wallets</h2>
+   <h2 class="mt-4 mb-3 text-thames">Wallets</h2>
    <div class="">
       <div class="mb-4">
          <div class="master_card" style="--font-size: 20px">
@@ -254,7 +254,7 @@ $monthlyIncome = array_reduce($data['data'], function ($carry, $row) {
    </div>
    <div class="position-relative box-tabel">
       <div class="scrol-bottom table-responsive-xl">
-         <table id="activities" class="table table-striped table-bordered" style="color: var(--text-color);border: 2px solid var(--border-color) !important;">
+         <table id="activities" class="table table-striped table-bordered text-thames" style="border: 2px solid var(--border-color) !important;">
             <thead>
                <tr>
                   <th class="header-td1">No</th>

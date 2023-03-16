@@ -91,6 +91,9 @@ class ActivityModel
       $auth = $_SESSION['user']["key"];
       $data = date("Y-m-t", strtotime("$year-$month"));
       $month = date_parse($month)['month'];
+      $last = $this->get->previousMonth($month, $year);
+      $found = false;
+      $way_nominal = 0;
 
       $activity = 'SELECT SUM(nominal) AS blance FROM activity WHERE id_user = :user AND MONTH(dates) = :month AND YEAR(dates) = :year';
       $this->db->query($activity);
@@ -113,17 +116,28 @@ class ActivityModel
       $this->db->bind('year', $year);
       $blance3 = $this->db->single();
 
-      $nominal = $blance3['blance'] - ($blance1['blance'] + $blance2['blance']);
-
-
-      $query = 'SELECT * FROM record WHERE id_user = :user AND YEAR(date) = :year AND MONTH(date) = :month';
+      $query = 'SELECT * FROM record WHERE id_user = :user';
       $this->db->query($query);
       $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $this->db->execute();
-      $count =  $this->db->rowCount();
-      if ($count > 0) {
+      $blance4 = $this->db->resultSet();
+      foreach ($blance4 as $row) {
+         $date = strtotime($row['date']);
+         $row_year = date('Y', $date);
+         $row_month = date('m', $date);
+         if ($row_year == $last[1] && $row_month == $last[0]) {
+            $way_nominal = $row['blance'];
+            break;
+         }
+      }
+      $nominal = $way_nominal + $blance3['blance'] - ($blance1['blance'] + $blance2['blance']);
+      foreach ($blance4 as $data) {
+         $date = date_parse($data['date']);
+         if ($date['year'] === (int)$year && $date['month'] === (int)$month) {
+            $found = true;
+            break;
+         }
+      }
+      if ($found) {
          // jika data sudah ada, lakukan update
          $update_query = 'UPDATE record SET blance = :blance WHERE  id_user = :user AND YEAR(date) = :year AND MONTH(date) = :month';
 
