@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL', 'http://localhost/InFima3/');
+define('BASEURL', 'http://localhost/InFima/');
 // define('BASEURL', 'http://192.168.1.16/InFima3/');
 
 // DB
