@@ -4,17 +4,17 @@ class activities extends Controller
 {
    public function index()
    {
-      header('Location: ' . BASEURL . 'dashboard/activities');
+      header('Location: ' . BASEURL . 'Dashboard/activities');
    }
    public function addactivity()
    {
       if ($this->model('ActivityModel')->addActivities($_POST) > 0) {
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          Flasher::setFlash('Berhasil', 'ditambahkan', 'success');
          exit;
       } else {
          Flasher::setFlash('Gagal', 'ditambahkan', 'danger');
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          exit;
       }
    }
@@ -22,11 +22,11 @@ class activities extends Controller
    {
       if ($this->model('ActivityModel')->deleteActivity($id) > 0) {
          Flasher::setFlash('Berhasil', 'dihapus dari database', 'warning');
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          exit;
       } else {
          Flasher::setFlash('Gagal', 'dihapus dari database', 'danger');
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          exit;
       }
    }
@@ -38,11 +38,11 @@ class activities extends Controller
    {
       if ($this->model('ActivityModel')->updateActivity($_POST) > 0) {
          Flasher::setFlash('Berhasil', 'diubah', 'primary');
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          exit;
       } else {
          Flasher::setFlash('Gagal', 'diubah', 'danger');
-         header('Location: ' . BASEURL . 'dashboard/activities');
+         header('Location: ' . BASEURL . 'Dashboard/activities');
          exit;
       }
    }

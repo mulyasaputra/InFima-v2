@@ -152,10 +152,10 @@ $numList = 1;
 <script>
    // Option
    month.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL; ?>dashboard/activities/${month.value}/<?= $data['year']; ?>`);
+      window.location.replace(`<?= BASEURL; ?>Dashboard/activities/${month.value}/<?= $data['year']; ?>`);
    });
    year.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL . 'dashboard/activities/' . $data['month']; ?>/${year.value}`);
+      window.location.replace(`<?= BASEURL . 'Dashboard/activities/' . $data['month']; ?>/${year.value}`);
    });
 
    // Validate Data Money

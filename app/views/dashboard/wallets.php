@@ -101,7 +101,7 @@ $numList = 1;
                      <button data-id="<?= $value['id']; ?>" data-bs-toggle="modal" data-bs-target="#addWallets" class="ButtonUpdate btn btn-warning btn-sm btn_addUpdate">Update</button>
                      <button class="btn btn-danger btn-sm" onclick="deleteAlert('<?= $value['id']; ?>')">Delete</button>
                   <?php else : ?>
-                     <a href="<?= BASEURL; ?>dashboard/savings" class="btn btn-success btn-sm">Edite on savings</a>
+                     <a href="<?= BASEURL; ?>Dashboard/savings" class="btn btn-success btn-sm">Edite on savings</a>
                   <?php endif ?>
                </td>
             </tr>
@@ -158,10 +158,10 @@ $numList = 1;
 <script>
    // Option
    month.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL; ?>dashboard/wallets/${month.value}/<?= $data['year']; ?>`);
+      window.location.replace(`<?= BASEURL; ?>Dashboard/wallets/${month.value}/<?= $data['year']; ?>`);
    });
    year.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL . 'dashboard/wallets/' . $data['month']; ?>/${year.value}`);
+      window.location.replace(`<?= BASEURL . 'Dashboard/wallets/' . $data['month']; ?>/${year.value}`);
    });
 
    // Validate Data Money

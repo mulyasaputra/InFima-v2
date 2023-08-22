@@ -4,13 +4,13 @@
 <div class="dash-content">
    <ul class="nav nav-tabs">
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "profile") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/profile">Profile</a>
+         <a class="nav-link <?= ($data["select"] === "profile") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/profile">Profile</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "output") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/output">Print Settings</a>
+         <a class="nav-link <?= ($data["select"] === "output") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/output">Print Settings</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "account") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/account">Account</a>
+         <a class="nav-link <?= ($data["select"] === "account") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/account">Account</a>
       </li>
    </ul>
 </div>
