@@ -1,0 +1,25 @@
+.card-header{
+   --bs-card-cap-bg:var(--header-color);
+   font-weight: 600;
+   color: #fff;
+}
+.class-chart-Wallets{
+   width: calc(100% - ((20rem + 1.5rem)*2));
+}
+:is(.class-chart-Wallets,.classDoughnut1,.classDoughnut2) .card-header{
+   color: #2e2e2e;
+}
+
+@media (max-width:1440px){
+   .class-chart-Wallets{
+      width: 100%;
+   }
+   .classDoughnut1,.classDoughnut2{
+      width: calc(50% - (1.5rem / 2));
+   }
+}
+@media (max-width:764px){
+   .classDoughnut1,.classDoughnut2{
+      width: 100%;
+   }
+}

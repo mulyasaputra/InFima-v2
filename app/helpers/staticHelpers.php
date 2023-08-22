@@ -68,7 +68,6 @@ function getDataEveryMonth($data, $row = 'date')
 // GDEMWhareYear
 function getDataEveryMonthWhereYear($data, $row = 'date', $year)
 {
-   $year = $year ?? date('Y');
    $data_bulanan = array_fill(0, 12, 0);
 
    // Iterasi pada array data untuk mengisi nilai bulanan
@@ -78,7 +77,7 @@ function getDataEveryMonthWhereYear($data, $row = 'date', $year)
          $data_bulanan[$bulan - 1] += 1;
       }
    }
-   return $data_bulanan;
+   return json_encode(array_values($data_bulanan));
 }
 
 function getNominalEveryYear($data, $date = 'date', $rows = 'nominal')
@@ -176,10 +175,21 @@ function getYearsavings($data)
       }
    }
 
-   $lastYearData = [json_encode(array_values($thisYear1)), json_encode(array_values($thisYear0))];
-   $thisYearData = [json_encode(array_values($lastYear1)), json_encode(array_values($lastYear0))];
+   $thisYearData = [json_encode(array_values($thisYear0)), json_encode(array_values($thisYear1))];
+   $lastYearData = [json_encode(array_values($lastYear0)), json_encode(array_values($lastYear1))];
    return array(
       'last_year' => $lastYearData,
       'this_year' => $thisYearData,
    );
+}
+
+// Mengambil jumlah semua nominal
+function getTotalNominal($data)
+{
+   $totalNominal = 0;
+   foreach ($data as $item) {
+      $nominal = intval($item['nominal']);
+      $totalNominal += $nominal;
+   }
+   return $totalNominal;
 }

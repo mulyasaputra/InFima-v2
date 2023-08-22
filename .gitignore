@@ -1,2 +1,2 @@
 .vscode
-public/.htaccess
+app/config/config.php

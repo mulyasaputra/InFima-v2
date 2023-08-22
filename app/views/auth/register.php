@@ -36,7 +36,7 @@ if (isset($_SESSION["user"])) {
                </div>
                <div class="text-center text-lg-start mt-4 pt-2">
                   <button name="register" type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Have an account? <a href="<?= BASEURL; ?>admin" class="link-danger">Login</a></p>
+                  <p class="small fw-bold mt-2 pt-1 mb-0">Have an account? <a href="<?= BASEURL; ?>ryu" class="link-danger">Login</a></p>
                </div>
 
             </form>

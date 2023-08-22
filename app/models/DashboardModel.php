@@ -10,47 +10,58 @@ class DashboardModel
       $this->db = new Database;
       $this->get = new helpers;
    }
-   public function getActivity()
+   public function getExpenditure()
    {
       $auth = $_SESSION['user']["key"];
-      $month = date('n');
-      $year = date('Y');
-      $last = $this->get->previousMonth($month, $year);
+      $query = 'SELECT * FROM activity WHERE id_user= :user';
 
-      // $wallets = 'SELECT SUM(CASE WHEN id_user = :user THEN nominal ELSE 0 END) as wallet FROM wallets WHERE MONTH(date) = :month AND YEAR(date) = :year';
-      // $activity = 'SELECT SUM(CASE WHEN id_user = :user THEN nominal ELSE 0 END) as expenditure FROM activity WHERE MONTH(dates) = :month AND YEAR(dates) = :year';
-      // $query1 = 'SELECT SUM(CASE WHEN type = true THEN nominal ELSE 0 END) as Income, SUM(CASE WHEN type = false THEN nominal ELSE 0 END) as Spending FROM savings WHERE id_user= :user AND YEAR(date) = :year';
-      $activity = 'SELECT * FROM activity WHERE id_user= :user AND YEAR(dates) = :year';
-      $wallets = 'SELECT * FROM wallets WHERE id_user= :user AND MONTH(date) = :month AND YEAR(date) = :year';
-      $record = 'SELECT blance FROM record WHERE id_user= :user AND MONTH(date) = :month AND YEAR(date) = :year';
-      $savings = 'SELECT date, type, nominal FROM savings WHERE id_user= :user';
-
-      // Expenditure
-      $this->db->query($activity);
+      $this->db->query($query);
       $this->db->bind('user', $auth);
-      $this->db->bind('year', $year);
-      $expenditure = $this->db->resultSet();
+      $allData = $this->db->resultSet();
+      $thisData = $this->get->thisViews($allData, date('m'), date('Y'));
+      $thisYears = $this->get->thisViews($allData, 0, date('Y'));
+      return [$thisYears, $thisData];
+   }
+   public function getRevenue()
+   {
+      $auth = $_SESSION['user']["key"];
+      $query = 'SELECT * FROM wallets WHERE id_user= :user AND MONTH(date) = :month AND YEAR(date) = :year';
 
-      // Wallets
-      $this->db->query($wallets);
+      $this->db->query($query);
       $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $wallet = $this->db->resultSet();
+      $this->db->bind('month', date('n'));
+      $this->db->bind('year', date('Y'));
+      return $this->db->resultSet();
+   }
+   public function getSavings()
+   {
+      $auth = $_SESSION['user']["key"];
+      // $query = 'SELECT * FROM savings WHERE id_user= :user';
+      $query = 'SELECT SUM(CASE WHEN type = 1 THEN nominal ELSE 0 END) - SUM(CASE WHEN type = 0 THEN nominal ELSE 0 END) AS blance FROM savings WHERE id_user= :user';
+      $savings = 'SELECT SUM(CASE WHEN type = true THEN nominal ELSE 0 END) as results FROM savings WHERE id_user= :user AND YEAR(date) = :year AND MONTH(date) = :month ';
 
-      // Record
+      $this->db->query($query);
+      $this->db->bind('user', $auth);
+      $blance = $this->db->single();
+
+      $this->db->query($savings);
+      $this->db->bind('user', $auth);
+      $this->db->bind('month', date('n'));
+      $this->db->bind('year', date('Y'));
+      $results = $this->db->single();
+
+      return [$blance, $results];
+   }
+   public function getRecord()
+   {
+      $auth = $_SESSION['user']["key"];
+      $last = $this->get->previousMonth(date('n'), date('Y'));
+      $record = 'SELECT SUM(blance) AS blance FROM record WHERE id_user= :user AND MONTH(date) = :month AND YEAR(date) = :year';
+
       $this->db->query($record);
       $this->db->bind('user', $auth);
       $this->db->bind('month', $last[0]);
       $this->db->bind('year', $last[1]);
-      $records = $this->db->fetchColumn();
-
-      // Savings
-      $this->db->query($savings);
-      $this->db->bind('user', $auth);
-      $saving = $this->db->resultSet();
-
-      // Return
-      return ['expenditure' => $expenditure, 'wallet' => $wallet, 'records' => $records, 'saving' => $saving];
+      return $this->db->fetchColumn();
    }
 }

@@ -1,0 +1,161 @@
+/* Panel */
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+   color: var(--text-color);
+   background-color: var(--panel-color);
+   border-color: var(--bs-nav-tabs-link-active-border-color);
+}
+.nav-tabs {
+   --bs-nav-tabs-link-active-border-color: var(--border-color) var(--border-color) var(--panel-color);
+   border-bottom: var(--bs-nav-tabs-border-width) solid var(--border-color);
+}
+.nav-tabs .nav-link:hover {
+   border: 1px solid;
+   border-color: var(--border-color) var(--border-color) transparent;
+}
+.nav-tabs .nav-link {
+   color: var(--text-color);
+}
+
+
+/* Profile Screen */
+.action .bx-icon {
+   --bg-btn: var(--black-light-color);
+   position: relative;
+   display: inline-block;
+   width: 34px;
+   height: 34px;
+   background-color: var(--bg-btn);
+   border-radius: 50%;
+   font-size: 1em;
+   color: var(--second-color);
+}
+.form-profile{
+   border: 1px solid var(--border-color);
+   border-radius: var(--bs-border-radius);
+}
+.action .bx-icon::before {
+   position: absolute;
+   transform: translate(-50%, -50%) !important;
+   left: 50% !important;
+   top: 50% !important;
+}
+.action i.active {
+   --bg-btn: rgba(105, 92, 254, 0.8) !important;
+   color: #fff;
+}
+
+/* Print Output Screen */
+.noty.text-thames{
+   width: 80%;
+}
+
+/* Account Screen */
+:is(.api-reg, .api-key, .mail-key, .pass-key) div{
+   display: flex;
+   gap: .6rem;
+   align-items: center;
+   background-color: aliceblue;
+   width: fit-content;
+   padding: .6rem 1.2rem;
+   color: #2e2e2e;
+   border-radius: 5px;
+}
+:is(.api-reg, .api-key, .mail-key, .pass-key) div i{
+   --bg-opacity-color-button: 0.139;
+   --bg-color-button: 0, 0, 0;
+   background-color: rgba(var(--bg-color-button) , var(--bg-opacity-color-button));
+   position: relative;
+   display: inline-block;
+   width: 38px;
+   height: 38px;
+   border-radius: 50%;
+   font-size: 1em;
+   color: #2e2e2e;
+   transition: all ease-in-out .2s;
+}
+:is(.api-reg, .api-key, .mail-key, .pass-key) div i::before{
+   position: absolute;
+   transform: translate(-50%, -50%);
+   left: 50%;
+   top: 50%;
+}
+:is(.api-reg, .api-key, .mail-key, .pass-key) div i:hover{
+   --bg-opacity-color-button: 0.824;
+   color: #e2e2e2;
+}
+.api-reg p{
+   display: flex;
+   gap: 1.5rem;
+}
+
+/* Modal Box Change Password*/
+.modal-body .inputBox{position: relative;}
+.modal-body .inputBox input {
+   width: 100%;
+   padding: 0.625rem 10px;
+   font-size: 1rem;
+   letter-spacing: 0.062rem;
+   margin-bottom: 1.5rem;
+   border: 1px solid #ccc;
+   background: transparent;
+   border-radius: 4px;
+   color: var(--text-color);
+ }
+ .modal-body .inputBox label {
+   position: absolute;
+   top: 2px;
+   left: 11px;
+   padding: 0.625rem 0;
+   font-size: 1rem;
+   color: gray;
+   pointer-events: none;
+   transition: 0.5s;
+ }
+.modal-body .inputBox input:focus ~ label,
+.modal-body .inputBox input:valid ~ label,
+.modal-body .inputBox input:not([value=""]) ~ label {
+   color: var(--text-color);
+   top: -19px;
+   left: 21px;
+   font-size: 0.75rem;
+   padding-left: 5px;
+   padding-right: 5px;
+   position: absolute;
+   z-index: 0;
+ }
+.modal-body .inputBox input:focus ~ label::before,
+.modal-body .inputBox input:valid ~ label::before,
+.modal-body .inputBox input:not([value=""]) ~ label::before {
+   content: "";
+   position: absolute;
+   width: 100%;
+   height: 17px;
+   z-index: -1;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: var(--panel-color);
+}
+ .modal-body .inputBox input:focus {
+   outline: none;
+   border: 2px solid #1a73e8;
+ }
+ .modal-body .Match-notif{
+   font-size: .8rem;
+   margin-bottom: 1.1rem;
+   display: block;
+   margin-left: 0.5rem;
+ }
+
+
+ /* input.custom-input[readonly]:valid, */
+ input.custom-input[readonly] {
+   background-color: var(--bs-secondary-bg);
+   pointer-events: none;
+   filter: none;
+   opacity: 0.5;
+}
+ input.custom-input[readonly]:focus  {
+   border: 0 !important;
+}

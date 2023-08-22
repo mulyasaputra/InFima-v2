@@ -1,6 +1,6 @@
 <?php
 
-class Admin extends Controller
+class Ryu extends Controller
 {
    public function index()
    {
@@ -10,7 +10,7 @@ class Admin extends Controller
             header('Location: ' . BASEURL . 'dashboard');
             exit;
          } else {
-            header('Location: ' . BASEURL . 'admin');
+            header('Location: ' . BASEURL . 'ryu');
             $_SESSION['login'] = true;
             exit;
          }
@@ -24,11 +24,11 @@ class Admin extends Controller
       if (isset($_POST["register"])) {
          if ($this->model('AuthModel')->register($_POST)) {
             Flasher::setInfo('Berhasil', 'dibuat', 'success');
-            header('Location: ' . BASEURL . 'admin');
+            header('Location: ' . BASEURL . 'ryu');
             exit;
          } else {
             Flasher::setInfo('Gagal', 'dibuat', 'danger');
-            header('Location: ' . BASEURL . 'admin/register');
+            header('Location: ' . BASEURL . 'ryu/register');
             exit;
          }
       }

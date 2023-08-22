@@ -31,7 +31,7 @@
          </ul>
       </div>
       <div class="nav-item">
-         <a href="<?= BASEURL; ?>admin" class="text-decoration-none text-capitalize text-white">get started <i class="fa-solid fa-arrow-right"></i></i></a>
+         <a href="<?= BASEURL; ?>Ryu" class="text-decoration-none text-capitalize text-white">get started <i class="fa-solid fa-arrow-right"></i></i></a>
       </div>
    </div>
 </nav>
@@ -44,7 +44,7 @@
             Business financial bookkeeping will be easier only with InFima, InFima is an application that is suitable for
             those of you who want to know daily, monthly and even yearly financial spending activities.
          </p>
-         <button class="btn bg-red-babbel mt-4 fit-content"><a class="text-white text-decoration-none text-capitalize" href="<?= BASEURL; ?>admin">get started now</a></button>
+         <button class="btn bg-red-babbel mt-4 fit-content"><a class="text-white text-decoration-none text-capitalize" href="<?= BASEURL; ?>ryu">get started now</a></button>
       </div>
       <div class="m-auto col-8 col-md-4 mb-5 m-md-0"><img width="100%" src="<?= BASEURL; ?>public/assets/home.webp" /></div>
    </div>
@@ -96,7 +96,7 @@
                      <li>Automatic cut off</li>
                      <li>Color theme mode</li>
                   </ul>
-                  <a href="admin" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</a>
+                  <a href="Ryu" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</a>
                </div>
             </div>
          </div>

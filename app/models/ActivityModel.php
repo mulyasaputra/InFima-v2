@@ -13,44 +13,34 @@ class ActivityModel
    }
    public function getActivity($month, $year)
    {
-
       $auth = $_SESSION['user']["key"];
-      $month = date_parse($month)['month'];
+      $month = date("m", strtotime($month));
 
-      $query = 'SELECT * FROM ' . $this->table . ' WHERE id_user= :user AND MONTH(dates) = :month AND YEAR(dates) = :year';
-
-      $this->db->query($query);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      return $this->db->resultSet();
-   }
-   public function getYears()
-   {
-      $auth = $_SESSION['user']["key"];
       $query = 'SELECT * FROM ' . $this->table . ' WHERE id_user= :user';
 
       $this->db->query($query);
       $this->db->bind('user', $auth);
-      $aset = $this->db->resultSet();
-      return $this->get->UniqueArray($aset, 'dates');
+      $allData = $this->db->resultSet();
+      $filterData = $this->get->thisViews($allData, $month, $year);
+      $filterYears = $this->get->getYears($allData);
+      return [$filterData, $filterYears];
    }
 
-   public function addactivity($data)
+   public function addActivities($data)
    {
       $auth = $_SESSION['user']["key"];
-      $query = "INSERT INTO " . $this->table . " VALUES ('', :id_user, :dates, :activity, :nominal)";
+      $query = "INSERT INTO " . $this->table . " VALUES ('', :id_user, :date, :activity, :nominal)";
 
       $this->db->query($query);
       $this->db->bind('id_user', $auth);
-      $this->db->bind('dates', $data['date']);
+      $this->db->bind('date', $data['date']);
       $this->db->bind('activity', $data['activities']);
       $this->db->bind('nominal', preg_replace("/[^0-9]/", "", $data['nominal']));
 
       $this->db->execute();
       return $this->db->rowCount();
    }
-   public function deleteactivity($id)
+   public function deleteActivity($id)
    {
       $query = "DELETE FROM " . $this->table . " WHERE id = :id";
       $this->db->query($query);
@@ -60,7 +50,7 @@ class ActivityModel
       return $this->db->rowCount();
    }
 
-   public function editactivity($id)
+   public function editActivity($id)
    {
       $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
       $this->db->query($query);
@@ -69,14 +59,14 @@ class ActivityModel
       return $this->db->single();
    }
 
-   public function updateactivity($data)
+   public function updateActivity($data)
    {
       $auth = $_SESSION['user']["key"];
-      $query = "UPDATE " . $this->table . " SET id_user = :id_user, dates = :dates, activity = :activity, nominal = :nominal WHERE id = :id";
+      $query = "UPDATE " . $this->table . " SET id_user = :id_user, date = :date, activity = :activity, nominal = :nominal WHERE id = :id";
 
       $this->db->query($query);
       $this->db->bind('id_user', $auth);
-      $this->db->bind('dates', $data['date']);
+      $this->db->bind('date', $data['date']);
       $this->db->bind('activity', $data['activities']);
       $this->db->bind('nominal', preg_replace("/[^0-9]/", "", $data['nominal']));
       $this->db->bind('id', $data['id']);
@@ -86,79 +76,8 @@ class ActivityModel
    }
 
 
-   public function cuteoff($month, $year)
+   public function cuteoff($months, $year)
    {
       $auth = $_SESSION['user']["key"];
-      $data = date("Y-m-t", strtotime("$year-$month"));
-      $month = date_parse($month)['month'];
-      $last = $this->get->previousMonth($month, $year);
-      $found = false;
-      $way_nominal = 0;
-
-      $activity = 'SELECT SUM(nominal) AS blance FROM activity WHERE id_user = :user AND MONTH(dates) = :month AND YEAR(dates) = :year';
-      $this->db->query($activity);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance1 = $this->db->single();
-
-      $savings = 'SELECT SUM(nominal) AS blance FROM savings WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year AND type = true';
-      $this->db->query($savings);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance2 = $this->db->single();
-
-      $wallets = 'SELECT SUM(nominal) AS blance FROM wallets WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
-      $this->db->query($wallets);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance3 = $this->db->single();
-
-      $query = 'SELECT * FROM record WHERE id_user = :user';
-      $this->db->query($query);
-      $this->db->bind('user', $auth);
-      $blance4 = $this->db->resultSet();
-      foreach ($blance4 as $row) {
-         $date = strtotime($row['date']);
-         $row_year = date('Y', $date);
-         $row_month = date('m', $date);
-         if ($row_year == $last[1] && $row_month == $last[0]) {
-            $way_nominal = $row['blance'];
-            break;
-         }
-      }
-      $nominal = $way_nominal + $blance3['blance'] - ($blance1['blance'] + $blance2['blance']);
-      foreach ($blance4 as $data) {
-         $date = date_parse($data['date']);
-         if ($date['year'] === (int)$year && $date['month'] === (int)$month) {
-            $found = true;
-            break;
-         }
-      }
-      if ($found) {
-         // jika data sudah ada, lakukan update
-         $update_query = 'UPDATE record SET blance = :blance WHERE  id_user = :user AND YEAR(date) = :year AND MONTH(date) = :month';
-
-         $this->db->query($update_query);
-         $this->db->bind('user', $auth);
-         $this->db->bind('month', $month);
-         $this->db->bind('year', $year);
-         $this->db->bind('blance', $nominal);
-
-         $this->db->execute();
-         return true;
-      } else {
-         $add_query = "INSERT INTO record VALUES ('', :id_user, :date, :blance)";
-
-         $this->db->query($add_query);
-         $this->db->bind('id_user', $auth);
-         $this->db->bind('date', $data);
-         $this->db->bind('blance', preg_replace("/[^0-9-]/", "", $nominal));
-
-         $this->db->execute();
-         return $this->db->rowCount();
-      }
    }
 }

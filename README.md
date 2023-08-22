@@ -1,4 +1,4 @@
-# InFima Beta
+# InFima Beta 2
 InFima adalah aplikasi yang dirancang untuk mempermudah proses pengelolaan keuangan pribadi Anda. Sebelumnya dikenal sebagai InSketch_Management, aplikasi ini membantu Anda melacak pendapatan dan pengeluaran, memungkinkan Anda memantau pengeluaran dan tabungan dengan mudah. Dengan InFima, Anda dapat menetapkan tujuan keuangan, melacak kemajuan Anda, dan membuat keputusan yang matang tentang uang Anda. Apakah Anda sedang menabung untuk pembelian besar atau hanya mencoba untuk tetap di atas tagihan Anda, InFima memudahkan untuk mengelola keuangan Anda dan mencapai tujuan keuangan Anda.
 
 InFima kini hadir dengan membawa tampilan dan fitur yang lebih baik lagi, Aplikasi ini dirancang dengan mengunakan konsep PHP MVC selain itu InFina sekarang menggunakan Bootstrap V5.3, DataTables, dan SweetAlert2, yang akan membuat tampilanya akan lebih cantik daripada versi sebelumnya. Walaupun InFima masih di buat menggunakan PHP V.7, itu tidak akan menghilangkan fitur yang sudah tersedia di InSketch_Management sebelumnya
@@ -18,10 +18,10 @@ Gunakan perintah `git clone` untuk mendapatkan repository
 git clone https://github.com/mulyasaputra/InFima-v2.git
 ```
 
-#### version Beta 1.2
+#### version Beta 2
 
 - Suport PHP versi 7.4.4 keatas
-- Full responsive
+- Full responsive Mobile and Desktop
 - Analytics
 - Multiple Roles: Admin, User, Treasurer (If there is time)
 - Edit profile (Coming soon)

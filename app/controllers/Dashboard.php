@@ -4,10 +4,15 @@ class Dashboard extends Controller
 {
    public function index()
    {
-      $this->view('dashboard/layout/header', ['title' => 'Dashboard']);
-      $this->view('dashboard/layout/navbar', ['dashboard' => 'active']);
+      if (!isset($_SESSION['Record'])) {
+         $_SESSION['Record'] = $this->model('DashboardModel')->getRecord();
+      }
+
+      $this->view('dashboard/layout/header', ['title' => 'Dashboard', 'dashboard' => 'active']);
       $this->view('dashboard/index', [
-         'money' => $this->model('DashboardModel')->getActivity(),
+         'Expenditure' => $this->model('DashboardModel')->getExpenditure(),
+         'Revenue' => $this->model('DashboardModel')->getRevenue(),
+         'Savings' => $this->model('DashboardModel')->getSavings(),
       ]);
       $this->view('dashboard/layout/footer');
    }
@@ -15,13 +20,11 @@ class Dashboard extends Controller
    {
       $month = $month ?? date('F');
       $year = $year ?? date('Y');
-      $this->view('dashboard/layout/header', ['title' => 'Activities']);
-      $this->view('dashboard/layout/navbar', ['activities' => 'active']);
+      $this->view('dashboard/layout/header', ['title' => 'Activities', 'activities' => 'active']);
       $this->view('dashboard/activities', [
          'month' => $month,
          'year' => $year,
          'data' => $this->model('ActivityModel')->getActivity($month, $year),
-         'getYears' => $this->model('ActivityModel')->getYears(),
       ]);
       $this->view('dashboard/layout/footer');
    }
@@ -29,49 +32,40 @@ class Dashboard extends Controller
    {
       $month = $month ?? date('F');
       $year = $year ?? date('Y');
-      $this->view('dashboard/layout/header', ['title' => 'Savings']);
-      $this->view('dashboard/layout/navbar', ['savings' => 'active']);
+      $this->view('dashboard/layout/header', ['title' => 'Savings', 'savings' => 'active']);
       $this->view('dashboard/savings', [
          'month' => $month,
          'year' => $year,
          'data' => $this->model('SavingsModel')->getSavings($month, $year),
-         'nominal' => $this->model('SavingsModel')->getNominal($year),
       ]);
       $this->view('dashboard/layout/footer');
    }
-   public function analytics($month = null, $year = null)
+   public function analytics()
    {
-      $month = $month ?? date('F');
-      $year = $year ?? date('Y');
-      $this->view('dashboard/layout/header', ['title' => 'Analytics']);
-      $this->view('dashboard/layout/navbar', ['analytics' => 'active']);
-      $this->view('dashboard/analytics', [
-         'month' => $month,
-         'year' => $year,
-         'data' => $this->model('AnalyticsModel')->getAnalytics(),
-      ]);
+      $this->view('dashboard/layout/header', ['title' => 'Analytics', 'analytics' => 'active']);
+      $this->view('dashboard/analytics');
       $this->view('dashboard/layout/footer');
    }
    public function wallets($month = null, $year = null)
    {
       $month = $month ?? date('F');
       $year = $year ?? date('Y');
-      $this->view('dashboard/layout/header', ['title' => 'Wallets']);
-      $this->view('dashboard/layout/navbar', ['wallets' => 'active']);
+      $this->view('dashboard/layout/header', ['title' => 'Wallets', 'wallets' => 'active']);
       $this->view('dashboard/wallets', [
          'month' => $month,
          'year' => $year,
          'data' => $this->model('WalletsModel')->getWallets($month, $year),
-         'data2' => $this->model('WalletsModel')->getdata($month, $year),
-         'getYears' => $this->model('WalletsModel')->getYears(),
+         'data2' => $this->model('WalletsModel')->getDataRS(),
       ]);
       $this->view('dashboard/layout/footer');
    }
-   public function setting($val = 'profile')
+   public function setting($val = 'account')
    {
-      $this->view('dashboard/layout/header', ['title' => 'Setting']);
-      $this->view('dashboard/layout/navbar', ['setting' => 'active']);
-      $this->view('dashboard/setting', ['val' => $val]);
+      $this->view('dashboard/layout/header', ['title' => 'Setting', 'setting' => 'active']);
+      $this->view('dashboard/setting', [
+         'select' => $val,
+         'data' => $this->model('SettingModel')->getDataaaa(),
+      ]);
       $this->view('dashboard/layout/footer');
    }
 }

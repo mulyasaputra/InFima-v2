@@ -1,135 +1,134 @@
-<Style>
-   #dataTable,
-   .card {
-      border: 1px solid var(--border-color) !important;
-      color: var(--text-color);
-   }
+<?php
+$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+?>
 
-   .header-td2 {
-      min-width: 120px;
-   }
-
-   .header-td3 {
-      width: 100%;
-      min-width: 324px;
-   }
-
-   .header-td4 {
-      min-width: 146px;
-   }
-</Style>
-<div class="dash-content">
-   <h2 class="mt-4 mb-3 text-thamestext-thames">Financial Backup Tube</h2>
-   <div class="rows-cols-1 rows-cols-sm-2 rows-cols-xl-3">
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #e74a3b; background-color: var(--second-color);">
-         <h6 class="text-uppercase heading-box" style="font-size: .9rem;">TOTAL SAVINGS</h6>
-         <div class="box-desk flex">
-            <span class="fs-4"><?= toCurrency($data['nominal'][0]['selisih']); ?></span>
-            <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-credit-card"></i>
-         </div>
+<link rel="stylesheet" href="<?= BASEURL ?>public/css/dashboard/index.css">
+<!-- Info card -->
+<div id="info-card" class="rows-cols-1 rows-cols-sm-2 rows-cols-xl-3">
+   <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #e74a3b;">
+      <h6 class="text-uppercase heading-box">TOTAL SAVINGS</h6>
+      <div class="box-desk flex">
+         <span class="fs-4"><?= toCurrency($data['data']['totalSavings']); ?></span>
+         <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-credit-card"></i>
       </div>
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #1cc88a; background-color: var(--second-color);">
-         <h6 class="text-uppercase heading-box" style="font-size: .9rem;">Savings (<?= date("Y"); ?>)</h6>
-         <div class="box-desk flex">
-            <span class="fs-4"><?= toCurrency($data['nominal'][1]['Income']); ?></span>
-            <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-bullseye"></i>
-         </div>
+   </div>
+   <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #1cc88a;">
+      <h6 class="text-uppercase heading-box">SAVINGS (<?= date("Y"); ?>)</h6>
+      <div class="box-desk flex">
+         <span class="fs-4"><?= toCurrency($data['data']['SavingsYears'][0]); ?></span>
+         <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-bullseye"></i>
       </div>
-      <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden text-thames" style="--boxs-color: #f6c23e; background-color: var(--second-color);">
-         <h6 class="text-uppercase heading-box" style="font-size: .9rem;">SAVING OUT (<?= date("Y"); ?>)</h6>
-         <div class="box-desk flex">
-            <span class="fs-4"><?= toCurrency($data['nominal'][1]['Spending']); ?></span>
-            <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-chart-pie-alt"></i>
+   </div>
+   <div class="main-boxs p-4 rounded shadow position-relative overflow-hidden" style="--boxs-color: #f6c23e;">
+      <h6 class="text-uppercase heading-box">SAVING OUT (<?= date("Y"); ?>)</h6>
+      <div class="box-desk flex">
+         <span class="fs-4"><?= toCurrency($data['data']['SavingsYears'][1]); ?></span>
+         <i class="position-absolute top-50 translate-middle-y fs-1 uil uil-chart-pie-alt"></i>
+      </div>
+   </div>
+</div>
+<!-- Butotn Action -->
+<div class="mb-4 mt-4" id="action">
+   <div class="d-flex justify-content-between gap-3 flex-wrap-reverse" id="action">
+      <!-- Dropdown Month & Years -->
+      <div class="d-flex gap-3 w-100 sm-fit-content">
+         <select class="form-select w-100 sm-fit-content" id="month">
+            <?php foreach ($months as $month) : ?>
+               <?php if (strtolower($data['month']) === strtolower($month)) : ?>
+                  <option value="<?= $month; ?>" selected><?= $month; ?></option>
+               <?php else : ?>
+                  <option value="<?= $month; ?>"><?= $month; ?></option>
+               <?php endif ?>
+            <?php endforeach ?>
+         </select>
+         <select class="form-select w-100 sm-fit-content" id="year">
+            <?php foreach ($data['data']["Years"] as $year) : ?>
+               <?php if (strtolower($data['year']) === strtolower($year)) : ?>
+                  <option value="<?= $year; ?>" selected><?= $year; ?></option>
+               <?php else : ?>
+                  <option value="<?= $year; ?>"><?= $year; ?></option>
+               <?php endif ?>
+            <?php endforeach ?>
+         </select>
+      </div>
+      <!-- Action Button -->
+      <a href="#" class="btn btn-success w-100 sm-fit-content"><i class="uil uil-print me-2"></i> Print</a>
+   </div>
+</div>
+<!-- Tabel Data -->
+<div class="rows-cols-1  rows-cols-lg-2 mt-4">
+   <!-- Income activity -->
+   <div class="rounded shadow">
+      <div class="card h-100" style="background-color: var(--second-color); color: var(--black-light-color);">
+         <div class="card-header text-primary fs-6 d-flex justify-content-between"><span>Income activity</span> <button data-id="" data-bs-toggle="modal" data-bs-target="#increaseSavings" class="btn btn-success btn-sm addIncome">Increase savings</button></div>
+         <div class="card-body overflow-x-auto">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               <thead>
+                  <tr>
+                     <th class="header-td1">No</th>
+                     <th class="header-td2" style="min-width: 7.4rem;">Date</th>
+                     <th class="header-td3" style="min-width: 21rem;">Activities</th>
+                     <th class="header-td4">Nominal</th>
+                     <th class="header-td5">Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php $s = 1; ?>
+                  <?php foreach ($data['data']['mainData'][0] as $income) : ?>
+                     <tr>
+                        <td style="vertical-align: middle;"><?= $s++; ?></td>
+                        <td style="vertical-align: middle;"><?= $income['date']; ?></td>
+                        <td style="vertical-align: middle;"><?= $income['activities']; ?></td>
+                        <td style="vertical-align: middle;"><?= toCurrency($income['nominal']); ?></td>
+                        <td style="text-align: center;" class="d-flex gap-2">
+                           <button class="btn btn-info updateIncome" data-id="<?= $income['id']; ?>" data-bs-toggle="modal" data-bs-target="#increaseSavings"><i class="uil uil-pen"></i></button>
+                           <button class="btn btn-danger" onclick="deleteAlert('<?= $income['id']; ?>')"><i class="uil uil-trash-alt"></i></button>
+                        </td>
+                     </tr>
+                  <?php endforeach ?>
+               </tbody>
+            </table>
          </div>
       </div>
    </div>
-   <div class="rows-cols-1  rows-cols-lg-2 mt-4">
-      <div class="rounded shadow">
-         <div class="card h-100" style="background-color: var(--second-color); color: var(--black-light-color);">
-            <div class="card-header text-primary fs-6 d-flex justify-content-between"><span>Income activity</span> <button data-id="" data-bs-toggle="modal" data-bs-target="#increaseSavings" class="btn btn-success btn-sm addIncome">Increase savings</button></div>
-            <div class="card-body overflow-x-auto">
-               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
+   <!-- Spending activity -->
+   <div class="rounded shadow">
+      <div class="card h-100" style="background-color: var(--second-color); color: var(--black-light-color);">
+         <div class="card-header text-primary fs-6 d-flex justify-content-between"><span>Spending activity</span> <button data-id="" data-bs-toggle="modal" data-bs-target="#takeSavings" class="btn btn-warning text-white btn-sm addSpending">Take savings</button></div>
+         <div class="card-body overflow-x-auto">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               <thead>
+                  <tr>
+                     <th class="header-td1">No</th>
+                     <th class="header-td2" style="min-width: 7.4rem;">Date</th>
+                     <th class="header-td3" style="min-width: 21rem;">Activities</th>
+                     <th class="header-td4">Nominal</th>
+                     <th class="header-td5">Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php $s = 1 ?>
+                  <?php foreach ($data['data']['mainData'][1] as $spending) : ?>
                      <tr>
-                        <th class="header-td1">No</th>
-                        <th class="header-td2">Date</th>
-                        <th class="header-td3">Activities</th>
-                        <th class="header-td4">Nominal</th>
-                        <th class="header-td5">Action</th>
+                        <td style="vertical-align: middle;"><?= $s++; ?></td>
+                        <td style="vertical-align: middle;"><?= $spending['date']; ?></td>
+                        <td style="vertical-align: middle;"><?= $spending['activities']; ?></td>
+                        <td style="vertical-align: middle;"><?= toCurrency($spending['nominal']); ?></td>
+                        <td style="text-align: center;" class="d-flex gap-2">
+                           <button class="btn btn-info updateSpending" data-id="<?= $spending['id']; ?>" data-bs-toggle="modal" data-bs-target="#takeSavings"><i class="uil uil-pen"></i></button>
+                           <button class="btn btn-danger" onclick="deleteAlert('<?= $spending['id']; ?>','<?= $spending['key_spending']; ?>')"><i class="uil uil-trash-alt"></i></button>
+                        </td>
                      </tr>
-                  </thead>
-                  <tbody>
-                     <?php $s = 1; ?>
-                     <?php foreach ($data['data'][0] as $income) : ?>
-                        <tr>
-                           <td style="vertical-align: middle;"><?= $s++; ?></td>
-                           <td style="vertical-align: middle;"><?= $income['date']; ?></td>
-                           <td style="vertical-align: middle;"><?= $income['activities']; ?></td>
-                           <td style="vertical-align: middle;"><?= toCurrency($income['nominal']); ?></td>
-                           <td style="text-align: center;" class="d-flex gap-2">
-                              <button class="btn btn-info updateIncome" data-id="<?= $income['id']; ?>" data-bs-toggle="modal" data-bs-target="#increaseSavings"><i class="uil uil-pen"></i></button>
-                              <button class="btn btn-danger" onclick="deleteAlert('<?= $income['id']; ?>')"><i class="uil uil-trash-alt"></i></button>
-                           </td>
-                        </tr>
-                     <?php endforeach ?>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-      </div>
-      <div class="rounded shadow">
-         <div class="card h-100" style="background-color: var(--second-color); color: var(--black-light-color);">
-            <div class="card-header text-primary fs-6 d-flex justify-content-between"><span>Spending activity</span> <button data-id="" data-bs-toggle="modal" data-bs-target="#takeSavings" class="btn btn-warning text-white btn-sm addSpending">Take savings</button></div>
-            <div class="card-body overflow-x-auto">
-               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                     <tr>
-                        <th class="header-td1">No</th>
-                        <th class="header-td2">Date</th>
-                        <th class="header-td3">Activities</th>
-                        <th class="header-td4">Nominal</th>
-                        <th class="header-td5">Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <?php $s = 1 ?>
-                     <?php foreach ($data['data'][1] as $spending) : ?>
-                        <tr>
-                           <td style="vertical-align: middle;"><?= $s++; ?></td>
-                           <td style="vertical-align: middle;"><?= $spending['date']; ?></td>
-                           <td style="vertical-align: middle;"><?= $spending['activities']; ?></td>
-                           <td style="vertical-align: middle;"><?= toCurrency($spending['nominal']); ?></td>
-                           <td style="text-align: center;" class="d-flex gap-2">
-                              <button class="btn btn-info updateSpending" data-id="<?= $spending['id']; ?>" data-bs-toggle="modal" data-bs-target="#takeSavings"><i class="uil uil-pen"></i></button>
-                              <button class="btn btn-danger" onclick="deleteAlert('<?= $spending['id']; ?>','<?= $spending['key_spending']; ?>')"><i class="uil uil-trash-alt"></i></button>
-                           </td>
-                        </tr>
-                     <?php endforeach ?>
-                  </tbody>
-               </table>
-            </div>
+                  <?php endforeach ?>
+               </tbody>
+            </table>
          </div>
       </div>
    </div>
 </div>
-<script>
-   // alert
-   function deleteAlert(id, key = '0') {
-      Swal.fire({
-         title: 'Are you sure?',
-         text: "You won't be able to revert this!",
-         icon: 'warning',
-         showCancelButton: true,
-         confirmButtonColor: '#3085d6',
-         cancelButtonColor: '#d33',
-         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-         if (result.isConfirmed) {
-            window.location.replace(`<?= BASEURL; ?>savings/deleteSavings/${id}/${key}`);
-         }
-      })
-   }
-</script>
+
+
+<!-- ModalBox -->
 <!-- increaseSavings Modal -->
 <div class="modal fade" id="increaseSavings" tabindex="-1" aria-labelledby="modalLabelIncrease" aria-hidden="true" data-bs-backdrop="static">
    <div class="modal-dialog">
@@ -210,12 +209,33 @@
       </div>
    </div>
 </div>
-<!-- Notyvication -->
-<div class="position-absolute bottom-0" style="right: 1em;">
-   <?php Flasher::flash(); ?>
-</div>
 
+<script src="<?= BASEURL ?>public/Vendor/SweetAlert2/sweetalert2.all.min.js"></script>
+<script src="<?= BASEURL ?>public/Vendor/jQuery/jquery-3.6.4.js"></script>
 <script>
+   // Option
+   month.addEventListener("change", function() {
+      window.location.replace(`<?= BASEURL; ?>dashboard/savings/${month.value}/<?= $data['year']; ?>`);
+   });
+   year.addEventListener("change", function() {
+      window.location.replace(`<?= BASEURL . 'dashboard/savings/' . $data['month']; ?>/${year.value}`);
+   });
+   // alert
+   function deleteAlert(id, key = '0') {
+      Swal.fire({
+         title: 'Are you sure?',
+         text: "You won't be able to revert this!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            window.location.replace(`<?= BASEURL; ?>savings/deleteSavings/${id}/${key}`);
+         }
+      })
+   }
    // Validate Data
    var validates = [document.querySelector("#nominal"),
       document.querySelector("#nominalTake")
@@ -225,9 +245,7 @@
          validate.value = toRupiah(this.value, "Rp. ");
       });
    });
-</script>
-<script src="<?= BASEURL ?>public/Vendor/jQuery/jquery-3.6.4.js"></script>
-<script>
+
    // button edit Data
    $(function() {
       $('.addIncome').on('click', function() {

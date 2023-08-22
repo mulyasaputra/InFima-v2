@@ -1,0 +1,35 @@
+
+/* Info Card */
+#info-card div{
+   background-color: var(--second-color);
+   color: var(--black-light-color);
+}
+#info-card .heading-box{
+   color: var(--boxs-color);
+   font-size: 0.9rem;
+}
+.main-boxs {
+   border-left: solid 5px var(--boxs-color) !important;
+}
+.box-desk.flex > i {
+   color: var(--boxs-color);
+   font-size: 135px !important;
+   opacity: 0.2;
+   right: -51px;
+}
+/* Chart data */
+.card{
+   --bs-card-border-color:var(--border-color);
+}
+
+/* History Card */
+#history-card .row .card{
+   background-color: var(--second-color);
+   color: var(--black-light-color);
+}
+.table>:not(caption)>*>*{
+color: var(--black-light-color);
+}
+.border-end{
+   --bs-border-color:var(--bs-table-border-color);
+}

@@ -6,11 +6,10 @@ class Wallets extends Controller
    {
       header('Location: ' . BASEURL . 'dashboard/wallets');
    }
-
    public function deleteWallets($id)
    {
       if ($this->model('WalletsModel')->deleteWallets($id) > 0) {
-         Flasher::setFlash('Berhasil', 'dihapus dari database', 'success');
+         Flasher::setFlash('Berhasil', 'dihapus dari database', 'warning');
          header('Location: ' . BASEURL . 'dashboard/Wallets');
          exit;
       } else {
@@ -19,7 +18,6 @@ class Wallets extends Controller
          exit;
       }
    }
-
    public function addWallets()
    {
       if ($this->model('WalletsModel')->addIncome($_POST) > 0) {
@@ -32,7 +30,6 @@ class Wallets extends Controller
          exit;
       }
    }
-
    public function edit()
    {
       echo json_encode($this->model('WalletsModel')->edit($_POST['id']));

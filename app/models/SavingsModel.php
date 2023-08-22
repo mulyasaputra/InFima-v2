@@ -5,54 +5,48 @@ class SavingsModel
    private $table = 'savings';
    private $db;
    private $db2;
+   private $get;
 
    public function __construct()
    {
       $this->db = new Database;
       $this->db2 = new Database;
+      $this->get = new helpers;
    }
 
    public function getSavings($month, $year)
    {
       $auth = $_SESSION['user']["key"];
-      $month = date_parse($month)['month'];
+      $month = date("m", strtotime($month));
 
-      $query = 'SELECT * FROM ' . $this->table . ' WHERE id_user= :user AND type = :type AND MONTH(date) = :month AND YEAR(date) = :year';
+      $query = 'SELECT * FROM ' . $this->table . ' WHERE id_user= :user';
 
       $this->db->query($query);
       $this->db->bind('user', $auth);
-      $this->db->bind('type', true);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $results1 = $this->db->resultSet();
-      $this->db->bind('type', false);
-      $results2 = $this->db->resultSet();
-      $results = [$results1, $results2];
-      return $results;
-   }
 
-   public function getNominal($year)
-   {
-      $auth = $_SESSION['user']["key"];
-      $query2 = 'SELECT SUM(CASE WHEN type = true THEN nominal ELSE 0 END) -
-               SUM(CASE WHEN type = false THEN nominal ELSE 0 END) as selisih
-               FROM ' . $this->table . ' WHERE id_user= :user';
-      $this->db->query($query2);
-      $this->db->bind('user', $auth);
-      $results1 =  $this->db->single();
+      // Ambil Semua Data
+      $allData = $this->db->resultSet();
+      // Ambil data berdasar bulan dan tahun tertentu
+      $filterData = $this->get->thisViews($allData, $month, $year);
+      // Ambil Semua data di tahun sekarang
+      $filterDataYears = $this->get->thisViews($allData, 0, date("Y"));
+      // Ambil data tahun untuk Dropdown
+      $filterYears = $this->get->getYears($allData);
+      // Ambil data bertipe True/False dari filterData
+      $filterType = $this->get->getType($filterData);
+      // Ambil data Nominal bertipe True/False dari allData
+      $allDataTypeYears = $this->get->getNominalByType($allData);
+      $allDataTypeYears = $allDataTypeYears[0] - $allDataTypeYears[1];
+      // Ambil data Nominal bertipe True/False dari sekarang
+      $filterTypeYears = $this->get->getNominalByType($filterDataYears);
 
-
-      $query1 = 'SELECT SUM(CASE WHEN type = true THEN nominal ELSE 0 END) as Income,
-               SUM(CASE WHEN type = false THEN nominal ELSE 0 END) as Spending
-               FROM ' . $this->table . ' WHERE id_user= :user AND YEAR(date) = :year';
-      $this->db->query($query1);
-      $this->db->bind('user', $auth);
-      $this->db->bind('year', $year);
-      $results2 =  $this->db->single();
-
-
-      $data = [$results1, $results2];
-      return $data;
+      // Print
+      return [
+         'mainData' => $filterType,
+         'Years' => $filterYears,
+         'totalSavings' => $allDataTypeYears,
+         'SavingsYears' => $filterTypeYears,
+      ];
    }
 
    public function deleteSavings($id, $key)
