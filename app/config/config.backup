@@ -1,10 +1,10 @@
 <?php
 
-define('BASEURL', 'http://localhost/InFima/');
-// define('BASEURL', 'http://192.168.1.16/InFima/');
+define('BASEURL', 'http://localhost/InFima-v2/');
+// define('BASEURL', 'http://192.168.1.16/InFima-v2/');
 
 // DB
-define('DB_HOST', '');
+define('DB_HOST', 'localhost');
 define('DB_USER', '');
 define('DB_PASS', '');
 define('DB_NAME', '');

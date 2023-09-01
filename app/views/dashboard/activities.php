@@ -4,7 +4,7 @@ $numList = 1;
 ?>
 
 <!-- html Section -->
-<link rel="stylesheet" href="<?= BASEURL ?>public/Vendor/DataTables/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="<?= BASEURL; ?>public/Vendor/DataTables/dataTables.bootstrap5.min.css">
 <!-- Main Menu -->
 <div class="mb-4" id="action">
    <div class="d-flex justify-content-between gap-3 flex-wrap-reverse" id="action">
@@ -31,7 +31,7 @@ $numList = 1;
       </div>
       <!-- Action Button -->
       <div class="d-flex gap-3 flex-wrap w-100 sm-fit-content">
-         <a href="#" class="btn btn-warning w-100 sm-fit-content"><i class="uil uil-dollar-alt me-2"></i> Cut off</a>
+         <a href="<?= BASEURL; ?>activities/cuteoff/<?= $data['month'] . "/" . $data['year'] ?>" class="btn btn-warning w-100 sm-fit-content"><i class="uil uil-dollar-alt me-2"></i> Cut off</a>
          <div class="d-flex gap-3 w-100 sm-fit-content">
             <a href="#" class="btn btn-success w-100 sm-fit-content"><i class="uil uil-print me-2"></i> Print</a>
             <button data-id="" data-bs-toggle="modal" data-bs-target="#addActivities" class="btn btn-danger w-100 sm-fit-content"><i class="uil uil-plus me-2"></i> Add</button>
@@ -152,10 +152,10 @@ $numList = 1;
 <script>
    // Option
    month.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL; ?>Dashboard/activities/${month.value}/<?= $data['year']; ?>`);
+      window.location.replace(`<?= BASEURL; ?>dashboard/activities/${month.value}/<?= $data['year']; ?>`);
    });
    year.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL . 'Dashboard/activities/' . $data['month']; ?>/${year.value}`);
+      window.location.replace(`<?= BASEURL . 'dashboard/activities/' . $data['month']; ?>/${year.value}`);
    });
 
    // Validate Data Money

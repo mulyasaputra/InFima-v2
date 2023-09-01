@@ -38,9 +38,9 @@ if (!isset($_SESSION["user"])) {
          <div class="btn-group">
             <img data-bs-toggle="dropdown" aria-expanded="false" src="<?= BASEURL; ?>public/user_profile/<?= $_SESSION['user']["profile"]; ?>" alt="">
             <ul class="dropdown-menu">
-               <li><a class="dropdown-item" href="#">Profile</a></li>
-               <li><a class="dropdown-item" href="<?= BASEURL . 'Dashboard/' . $Setting['link']; ?>"><?= $Setting['name']; ?></a></li>
-               <li><a class="dropdown-item" href="<?= BASEURL . 'Dashboard/' . $Wallets['link']; ?>"><?= $Wallets['name']; ?></a></li>
+               <li><a class="dropdown-item" href="<?= BASEURL . 'dashboard/' . $Setting['link']; ?>/profile">Profile</a></li>
+               <li><a class="dropdown-item" href="<?= BASEURL . 'dashboard/' . $Setting['link']; ?>"><?= $Setting['name']; ?></a></li>
+               <li><a class="dropdown-item" href="<?= BASEURL . 'dashboard/' . $Wallets['link']; ?>"><?= $Wallets['name']; ?></a></li>
                <li>
                   <hr class="dropdown-divider">
                </li>

@@ -215,10 +215,10 @@ $months = ["January", "February", "March", "April", "May", "June", "July", "Augu
 <script>
    // Option
    month.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL; ?>Dashboard/savings/${month.value}/<?= $data['year']; ?>`);
+      window.location.replace(`<?= BASEURL; ?>dashboard/savings/${month.value}/<?= $data['year']; ?>`);
    });
    year.addEventListener("change", function() {
-      window.location.replace(`<?= BASEURL . 'Dashboard/savings/' . $data['month']; ?>/${year.value}`);
+      window.location.replace(`<?= BASEURL . 'dashboard/savings/' . $data['month']; ?>/${year.value}`);
    });
    // alert
    function deleteAlert(id, key = '0') {

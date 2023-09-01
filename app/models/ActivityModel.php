@@ -79,5 +79,72 @@ class ActivityModel
    public function cuteoff($months, $year)
    {
       $auth = $_SESSION['user']["key"];
+      $datas = date("Y-m-t", strtotime("$year-$months"));
+      $month = date_parse($months)['month'];
+      $last = $this->get->previousMonth($month, $year);
+
+      $activity = 'SELECT SUM(nominal) AS blance FROM activity WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
+      $this->db->query($activity);
+      $this->db->bind('user', $auth);
+      $this->db->bind('month', $month);
+      $this->db->bind('year', $year);
+      $blance1 = $this->db->single();
+
+      $savings = 'SELECT SUM(nominal) AS blance FROM savings WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year AND type = true';
+      $this->db->query($savings);
+      $this->db->bind('user', $auth);
+      $this->db->bind('month', $month);
+      $this->db->bind('year', $year);
+      $blance2 = $this->db->single();
+
+      $wallets = 'SELECT SUM(nominal) AS blance FROM wallets WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
+      $this->db->query($wallets);
+      $this->db->bind('user', $auth);
+      $this->db->bind('month', $month);
+      $this->db->bind('year', $year);
+      $blance3 = $this->db->single();
+
+      $query = 'SELECT * FROM record WHERE id_user = :user';
+      $this->db->query($query);
+      $this->db->bind('user', $auth);
+      $getBalance = 0;
+      $record = 0;
+      foreach ($this->db->resultSet() as $item) {
+         $a = substr($item["date"], 0, 4);
+         $b = substr($item["date"], 5, 2);
+         if ($a == $year && $b == $month) {
+            $getBalance = $item["blance"];
+         }
+         if ($a == $last[1] && $b == $last[0]) {
+            $record = $item["blance"];
+         }
+      }
+
+      $nominal = ($record + $blance3['blance']) - ($blance1['blance'] + $blance2['blance']);
+
+
+      // Update Data || Add Data
+      if ($getBalance != 0) {
+         $update_query = 'UPDATE record SET blance = :blance WHERE  id_user = :user AND YEAR(date) = :year AND MONTH(date) = :month';
+
+         $this->db->query($update_query);
+         $this->db->bind('user', $auth);
+         $this->db->bind('month', $month);
+         $this->db->bind('year', $year);
+         $this->db->bind('blance', $nominal);
+
+         $this->db->execute();
+         return true;
+      } else {
+         $add_query = "INSERT INTO record VALUES ('', :id_user, :date, :blance)";
+
+         $this->db->query($add_query);
+         $this->db->bind('id_user', $auth);
+         $this->db->bind('date', $datas);
+         $this->db->bind('blance', preg_replace("/[^0-9-]/", "", $nominal));
+
+         $this->db->execute();
+         return $this->db->rowCount();
+      }
    }
 }

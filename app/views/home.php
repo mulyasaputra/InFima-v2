@@ -31,7 +31,7 @@
          </ul>
       </div>
       <div class="nav-item">
-         <a href="<?= BASEURL; ?>Ryu" class="text-decoration-none text-capitalize text-white">get started <i class="fa-solid fa-arrow-right"></i></i></a>
+         <a href="<?= BASEURL; ?>ryu" class="text-decoration-none text-capitalize text-white">get started <i class="fa-solid fa-arrow-right"></i></i></a>
       </div>
    </div>
 </nav>
@@ -96,7 +96,7 @@
                      <li>Automatic cut off</li>
                      <li>Color theme mode</li>
                   </ul>
-                  <a href="Ryu" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</a>
+                  <a href="ryu" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</a>
                </div>
             </div>
          </div>

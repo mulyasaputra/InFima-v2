@@ -4,13 +4,13 @@
 <div class="dash-content">
    <ul class="nav nav-tabs">
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "profile") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/profile">Profile</a>
+         <a class="nav-link <?= ($data["select"] === "profile") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/profile">Profile</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "output") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/output">Print Settings</a>
+         <a class="nav-link <?= ($data["select"] === "output") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/output">Print Settings</a>
       </li>
       <li class="nav-item">
-         <a class="nav-link <?= ($data["select"] === "account") ? "active" : ""; ?>" href="<?= BASEURL ?>Dashboard/setting/account">Account</a>
+         <a class="nav-link <?= ($data["select"] === "account") ? "active" : ""; ?>" href="<?= BASEURL ?>dashboard/setting/account">Account</a>
       </li>
    </ul>
 </div>
@@ -148,35 +148,43 @@
 <section class="mt-3" id="<?= ($data["select"] === "account") ? "account" : "hiden"; ?>">
    <div class="api-key">
       <h4>Key</h4>
-      <div>
-         <p class="mb-0 me-3"><?= $data['data'][0]["api_key"]; ?></p>
-         <i class="bx-icon uil uil-redo" style="--bg-color-button: 228, 24, 24;"></i>
-         <i onclick="copy('<?= $data['data'][0]['api_key']; ?>', 'Api Key')" class="bx-icon uil uil-clipboard-alt"></i>
+      <div class="w-100 width-a">
+         <p class="mb-0 me-0 overflow-hidden"><?= $data['data'][0]["api_key"]; ?></p>
+         <div class="p-0">
+            <i class="bx-icon uil uil-redo" style="--bg-color-button: 228, 24, 24;"></i>
+            <i onclick="copy('<?= $data['data'][0]['api_key']; ?>', 'Api Key')" class="bx-icon uil uil-clipboard-alt"></i>
+         </div>
       </div>
    </div>
    <div class="api-reg mt-4">
       <h4>No Reg.</h4>
-      <div>
-         <p class="mb-0 me-3">
+      <div class="w-100 width-a">
+         <p class="mb-0 me-0 overflow-hidden">
             <?php foreach (explode(" ", $data['data'][0]["account"]) as $num) : ?>
                <span><?= $num; ?></span>
             <?php endforeach ?>
          </p>
-         <i onclick="copy('<?= $data['data'][0]['account']; ?>', 'No Reg.')" class="bx-icon uil uil-clipboard-alt"></i>
+         <div class="p-0">
+            <i onclick="copy('<?= $data['data'][0]['account']; ?>', 'No Reg.')" class="bx-icon uil uil-clipboard-alt"></i>
+         </div>
       </div>
    </div>
    <div class="mail-key mt-4">
       <h4>E-mail</h4>
-      <div>
-         <p class="mb-0 me-3"><?= $data['data'][0]["email"]; ?></p>
-         <i onclick="copy('<?= $data['data'][0]['email']; ?>', 'E-mail')" class="bx-icon uil uil-clipboard-alt"></i>
+      <div class="w-100 width-a">
+         <p class="mb-0 me-0 overflow-hidden"><?= $data['data'][0]["email"]; ?></p>
+         <div class="p-0">
+            <i onclick="copy('<?= $data['data'][0]['email']; ?>', 'E-mail')" class="bx-icon uil uil-clipboard-alt"></i>
+         </div>
       </div>
    </div>
    <div class="pass-key mt-4">
       <h4>Password</h4>
-      <div>
-         <p class="mb-0 me-3">Change your password</p>
-         <i data-bs-toggle="modal" data-bs-target="#ChangePassword" class="bx-icon uil uil-pen"></i>
+      <div class="w-100 width-a">
+         <p class="mb-0 me-0 overflow-hidden">Change your password</p>
+         <div class="p-0">
+            <i data-bs-toggle="modal" data-bs-target="#ChangePassword" class="bx-icon uil uil-pen"></i>
+         </div>
       </div>
    </div>
 </section>

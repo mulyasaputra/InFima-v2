@@ -214,6 +214,7 @@
 
 /* Smoll devices (phone, 768px and up) sm*/
 @media (min-width: 576px) { 
+   .w-sm-100{width: 100% !important;}
    .vh-sm-100{
       height: 100vh !important;
    }

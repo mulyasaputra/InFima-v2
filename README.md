@@ -1,4 +1,4 @@
-# InFima Beta 2
+# InFima Beta 2.1
 InFima adalah aplikasi yang dirancang untuk mempermudah proses pengelolaan keuangan pribadi Anda. Sebelumnya dikenal sebagai InSketch_Management, aplikasi ini membantu Anda melacak pendapatan dan pengeluaran, memungkinkan Anda memantau pengeluaran dan tabungan dengan mudah. Dengan InFima, Anda dapat menetapkan tujuan keuangan, melacak kemajuan Anda, dan membuat keputusan yang matang tentang uang Anda. Apakah Anda sedang menabung untuk pembelian besar atau hanya mencoba untuk tetap di atas tagihan Anda, InFima memudahkan untuk mengelola keuangan Anda dan mencapai tujuan keuangan Anda.
 
 InFima kini hadir dengan membawa tampilan dan fitur yang lebih baik lagi, Aplikasi ini dirancang dengan mengunakan konsep PHP MVC selain itu InFina sekarang menggunakan Bootstrap V5.3, DataTables, dan SweetAlert2, yang akan membuat tampilanya akan lebih cantik daripada versi sebelumnya. Walaupun InFima masih di buat menggunakan PHP V.7, itu tidak akan menghilangkan fitur yang sudah tersedia di InSketch_Management sebelumnya
@@ -18,20 +18,30 @@ Gunakan perintah `git clone` untuk mendapatkan repository
 git clone https://github.com/mulyasaputra/InFima-v2.git
 ```
 
-#### version Beta 2
+Masuk ke folder `app/config` dan temukan file `config.backup` ganti nama menjadi
 
-- Suport PHP versi 7.4.4 keatas
-- Full responsive Mobile and Desktop
-- Analytics
-- Multiple Roles: Admin, User, Treasurer (If there is time)
-- Edit profile (Coming soon)
-- Print to PDF & CSV (Coming soon)
+```
+config.php
+```
 
 
 #### Catatan
 
 - Kode ini belum di optimalisasi, web ini masih ditulis menggunakan kodingan `Barbar` Silahkan modifikasi ulang agar lebih optimal
 
+#### version Beta 2.1
+
+- Suport PHP versi 7.4.4 keatas
+- Full responsive Mobile and Desktop
+- Full theme (LightMode and DarkMode)
+- Edit profile
+- Set PDF size
+
+#### Features currently under development
+
+- Print to PDF & CSV (Coming soon)
+- Analytics (Coming soon)
+- Multiple Roles: Admin, User, Treasurer (If there is time)
 
 ## Teknologi yang di gunakan di Website ini
 
