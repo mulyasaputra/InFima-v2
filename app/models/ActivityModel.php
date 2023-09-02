@@ -83,30 +83,20 @@ class ActivityModel
       $month = date_parse($months)['month'];
       $last = $this->get->previousMonth($month, $year);
 
-      $activity = 'SELECT SUM(nominal) AS blance FROM activity WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
-      $this->db->query($activity);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance1 = $this->db->single();
+      // Menggunakan parameter binding untuk menghindari SQL injection
+      $query = 'SELECT SUM(nominal) AS blance FROM activity WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
+      $this->processQuery($query, $auth, $month, $year, $blance1);
 
-      $savings = 'SELECT SUM(nominal) AS blance FROM savings WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year AND type = true';
-      $this->db->query($savings);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance2 = $this->db->single();
+      $query = 'SELECT SUM(nominal) AS blance FROM savings WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year AND type = true';
+      $this->processQuery($query, $auth, $month, $year, $blance2);
 
-      $wallets = 'SELECT SUM(nominal) AS blance FROM wallets WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
-      $this->db->query($wallets);
-      $this->db->bind('user', $auth);
-      $this->db->bind('month', $month);
-      $this->db->bind('year', $year);
-      $blance3 = $this->db->single();
+      $query = 'SELECT SUM(nominal) AS blance FROM wallets WHERE id_user = :user AND MONTH(date) = :month AND YEAR(date) = :year';
+      $this->processQuery($query, $auth, $month, $year, $blance3);
 
       $query = 'SELECT * FROM record WHERE id_user = :user';
       $this->db->query($query);
       $this->db->bind('user', $auth);
+
       $getBalance = 0;
       $record = 0;
       foreach ($this->db->resultSet() as $item) {
@@ -121,12 +111,16 @@ class ActivityModel
       }
 
       $nominal = ($record + $blance3['blance']) - ($blance1['blance'] + $blance2['blance']);
-
+      // Update $_SESSION[Record]
+      $monthsTimestamp = strtotime($months . ' ' . $year);
+      $lastMonthTimestamp = strtotime('-1 month', strtotime(date('F Y')));
+      if ($monthsTimestamp == $lastMonthTimestamp) {
+         $_SESSION['Record'] = $nominal;
+      }
 
       // Update Data || Add Data
       if ($getBalance != 0) {
          $update_query = 'UPDATE record SET blance = :blance WHERE  id_user = :user AND YEAR(date) = :year AND MONTH(date) = :month';
-
          $this->db->query($update_query);
          $this->db->bind('user', $auth);
          $this->db->bind('month', $month);
@@ -137,14 +131,21 @@ class ActivityModel
          return true;
       } else {
          $add_query = "INSERT INTO record VALUES ('', :id_user, :date, :blance)";
-
          $this->db->query($add_query);
          $this->db->bind('id_user', $auth);
          $this->db->bind('date', $datas);
          $this->db->bind('blance', preg_replace("/[^0-9-]/", "", $nominal));
-
          $this->db->execute();
          return $this->db->rowCount();
       }
+   }
+
+   private function processQuery($query, $user, $month, $year, &$result)
+   {
+      $this->db->query($query);
+      $this->db->bind('user', $user);
+      $this->db->bind('month', $month);
+      $this->db->bind('year', $year);
+      $result = $this->db->single();
    }
 }

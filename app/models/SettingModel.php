@@ -82,6 +82,14 @@ class SettingModel
       $_SESSION['user']["username"] = $data["username"];
       $_SESSION['user']["name"] = $data["name"];
 
+      // Hapus Profile lama
+      if ($data["profile"] != "default.jpg") {
+         $gambar = $upload_folder . $data["profile"];
+         if (file_exists($gambar)) {
+            unlink($gambar);
+         }
+      }
+
       // // Enter data into the database
       $auth = $_SESSION['user']["key"];
       $query = "UPDATE users INNER JOIN profile ON users.id = profile.user_id

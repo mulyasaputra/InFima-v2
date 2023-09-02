@@ -44,6 +44,7 @@
    <div class="form-profile p-3" style="width: 100%; max-width: 47em;">
       <h5 class="text-thames mb-3">Edit profile</h5>
       <form action="<?= BASEURL; ?>setting/updateProfile" method="post" enctype="multipart/form-data">
+         <input type="hidden" name="profile" value="<?= $_SESSION['user']["profile"]; ?>">
          <div class="row">
             <div class="col-md-6 col-12">
                <input type="text" class="inputForm form-control" name="name" id="name" placeholder="Full name" disabled="" value="<?= $_SESSION["user"]["name"]; ?>">

@@ -21,8 +21,6 @@ class Setting extends Controller
    }
    public function updateProfile()
    {
-      // var_dump($_FILES);
-      // var_dump($this->model('SettingModel')->updateProfile($_POST));
       if ($this->model('SettingModel')->updateProfile($_POST) > 0) {
          Flasher::setFlash('Berhasil', 'diubah', 'success');
          header('Location: ' . BASEURL . 'dashboard/setting/profile');

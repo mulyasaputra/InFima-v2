@@ -43,7 +43,9 @@ class Dashboard extends Controller
    public function analytics()
    {
       $this->view('dashboard/layout/header', ['title' => 'Analytics', 'analytics' => 'active']);
-      $this->view('dashboard/analytics');
+      $this->view('dashboard/analytics', [
+         'data' => $this->model('AnalyticsModel')->getAnalytics(),
+      ]);
       $this->view('dashboard/layout/footer');
    }
    public function wallets($month = null, $year = null)

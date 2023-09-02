@@ -1,3 +1,11 @@
+<?php
+$data = $data{
+   'data'};
+$activitys = [getYearlyData($data["activitys"], 'date'), getDataEveryMonthWhereYear($data["activitys"], 'date', date('Y'))];
+$records = getYearlyData($data["records"], 'date', 'blance');
+$savings = getYearsavings($data["savings"]);
+$wallets = getYearlyData($data["wallets"]);
+?>
 <link rel="stylesheet" href="<?= BASEURL ?>public/css/dashboard/analytics.css">
 <!-- Chart data Activitys -->
 <div class="chart-data mt-4 overflow-hidden" style="--header-color: #e74a3b;">
@@ -85,3 +93,23 @@
          </div> -->
    </div>
 </div>
+
+<script src="<?= BASEURL ?>public/Vendor/Chart.js/chart.umd.js"></script>
+<script>
+   const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+   const colors = ["#FEA1BF", "#3983eb", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "#FFC6D3", "#E98EAD", "#EB455F", "#B3005E", "#FF5F9E", "#865DFF", "#E384FF", "#FFA3FD"];
+   const thisYearActivitys = <?= $activitys[0]["this_year"]; ?>,
+      lastYearActivitys = <?= $activitys[0]["last_year"]; ?>,
+      thisYearWallets = <?= $wallets["this_year"]; ?>,
+      lastYearWallets = <?= $wallets["last_year"]; ?>,
+      thisYearRecords = <?= $records["this_year"]; ?>,
+      lastYearRecords = <?= $records["last_year"]; ?>;
+   const DoughnutActivitys = <?= $activitys[1]; ?>,
+      DoughnutWSaving = <?= getDataWalletWhereYear($data["wallets"], 'date', date('Y'))[0]; ?>,
+      DoughnutWSalary = <?= getDataWalletWhereYear($data["wallets"], 'date', date('Y'))[1]; ?>;
+   const thisYear1 = <?= $savings["this_year"][1]; ?>,
+      thisYear0 = <?= $savings["this_year"][0]; ?>,
+      lastYear1 = <?= $savings["last_year"][1]; ?>,
+      lastYear0 = <?= $savings["last_year"][0]; ?>;
+</script>
+<script src="<?= BASEURL ?>public/js/dashboard/AnalyticsChart.js"></script>

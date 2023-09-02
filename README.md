@@ -34,13 +34,13 @@ config.php
 - Suport PHP versi 7.4.4 keatas
 - Full responsive Mobile and Desktop
 - Full theme (LightMode and DarkMode)
+- Analytics
 - Edit profile
 - Set PDF size
 
 #### Features currently under development
 
 - Print to PDF & CSV (Coming soon)
-- Analytics (Coming soon)
 - Multiple Roles: Admin, User, Treasurer (If there is time)
 
 ## Teknologi yang di gunakan di Website ini

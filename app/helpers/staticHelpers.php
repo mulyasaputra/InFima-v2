@@ -79,6 +79,22 @@ function getDataEveryMonthWhereYear($data, $row = 'date', $year)
    }
    return json_encode(array_values($data_bulanan));
 }
+function getDataWalletWhereYear($data, $row = 'date', $year)
+{
+   $w_savings = array_fill(0, 12, 0);
+   $w_salary = array_fill(0, 12, 0);
+   foreach ($data as $item) {
+      $bulan = date("n", strtotime($item[$row]));
+      if (date("Y", strtotime($item[$row])) == $year) {
+         if ($item["key_spending"] !== "0") {
+            $w_salary[$bulan - 1] += 1;
+         } else {
+            $w_savings[$bulan - 1] += 1;
+         }
+      }
+   }
+   return [json_encode(array_values($w_savings)), json_encode(array_values($w_salary))];
+}
 
 function getNominalEveryYear($data, $date = 'date', $rows = 'nominal')
 {
